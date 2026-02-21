@@ -1,0 +1,39 @@
+---
+/**
+ * PortfolioPage Layout
+ * 
+ * Shared wrapper for all portfolio category pages.
+ * Accepts a title, banner heading, and image array.
+ * Renders BaseLayout + page title + Gallery component.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Gallery from '../components/Gallery.astro';
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  title?: string;
+}
+
+interface Props {
+  title: string;
+  category: string;          // slug used for GLightbox group + data attrs
+  images: GalleryImage[];
+}
+
+const { title, category, images } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  bannerImage="/images/banner-inner.png"
+  bannerHeading={title}
+  isHome={false}
+>
+
+  <div class="page-content">
+    <h2 class="page-content__title">{title}</h2>
+    <Gallery images={images} category={category} />
+  </div>
+
+</BaseLayout>

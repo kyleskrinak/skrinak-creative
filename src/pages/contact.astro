@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact Us"
+  bannerImage="/images/banner-inner.png"
+  bannerHeading="Contact Us"
+  isHome={false}
+>
+
+  <div class="contact-content">
+
+    <p class="contact-intro">
+      Interested in working together? Contact us to schedule a consultation.
+    </p>
+
+    <hr class="contact-divider" />
+
+    <div class="contact-person">
+      <p class="contact-person__name">Elena Skrinak</p>
+      <p class="contact-person__info">
+        <a href="tel:9196127997">919.612.7997</a> — <a href="mailto:elena@skrinakcreative.com">elena@skrinakcreative.com</a>
+      </p>
+      <p class="contact-person__role">Owner and Creative Director</p>
+    </div>
+
+    <div class="contact-person">
+      <p class="contact-person__name">Kyle Skrinak</p>
+      <p class="contact-person__info">
+        <a href="tel:9199245015">919.924.5015</a> — <a href="mailto:kyle@skrinakcreative.com">kyle@skrinakcreative.com</a>
+      </p>
+      <p class="contact-person__role">Owner and IT Director</p>
+    </div>
+
+    <div class="contact-address">
+      <p class="contact-address__company">Skrinak Creative, Inc.</p>
+      <p class="contact-address__street">
+        309 Sir Brennan Ct.<br />
+        Apex, NC 27523
+      </p>
+    </div>
+
+    <!-- Google Maps embed — replace src with current embed URL from Google Maps if needed -->
+    <iframe
+      class="contact-map"
+      title="Skrinak Creative location map"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3237.2!2d-78.8611006!3d35.7671009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQ2JzAxLjIiTiA3OMKwNTEnMzkuOSJX!5e0!3m2!1sen!2sus!4v1"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+
+  </div>
+
+</BaseLayout>

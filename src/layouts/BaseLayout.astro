@@ -1,0 +1,201 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  bannerImage?: string;
+  bannerEyebrow?: string;
+  bannerHeading?: string;
+  isHome?: boolean;
+}
+
+const {
+  title,
+  bannerImage = '/images/banner.png',
+  bannerEyebrow = 'Skrinak Creative, Inc.',
+  bannerHeading,
+  isHome = false,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const portfolioPages = [
+  { label: 'Brochures',              href: '/brochures' },
+  { label: 'Folders',                href: '/folders' },
+  { label: 'Logos & Identity',       href: '/logos-identity' },
+  { label: 'Newsletters & One-pagers', href: '/newsletters' },
+  { label: 'Trade Show & Display',   href: '/trade-show-display' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Skrinak Creative, Inc. — Graphic Design. Full-service design studio specializing in corporate identity, brochures, trade show displays, and more." />
+  <title>{title} — Skrinak Creative, Inc.</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+
+<body>
+
+  <!-- ==============================
+       HEADER / BANNER
+       ============================== -->
+  <header class={`site-header${isHome ? '' : ' inner-page'}`} id="header">
+
+    <img
+      class="banner-bg"
+      src={bannerImage}
+      alt=""
+      role="presentation"
+      loading="eager"
+    />
+    <div class="banner-overlay"></div>
+
+    <!-- Desktop + mobile top nav bar -->
+    <nav class="site-nav" aria-label="Main navigation">
+
+      <!-- Logo -->
+      <a href="/" class="site-nav__logo" aria-label="Skrinak Creative home">
+        <img src="/images/logo.png" alt="Skrinak Creative, Inc." />
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="site-nav__links" role="list">
+        <li><a href="/" class={currentPath === '/' ? 'active' : ''}>Home</a></li>
+
+        <!-- Portfolio dropdown -->
+        <li class="site-nav__dropdown">
+          <button class="site-nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Portfolio
+          </button>
+          <ul class="site-nav__dropdown-menu" role="menu">
+            {portfolioPages.map(p => (
+              <li role="none">
+                <a href={p.href} role="menuitem" class={currentPath === p.href ? 'active' : ''}>{p.label}</a>
+              </li>
+            ))}
+          </ul>
+        </li>
+
+        <li><a href="/contact" class={`nav-contact${currentPath === '/contact' ? ' active' : ''}`}>Contact Us</a></li>
+      </ul>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="mobile-nav-toggle"
+        aria-label="Open navigation menu"
+        aria-controls="mobile-drawer"
+        aria-expanded="false"
+        id="nav-toggle"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- Banner title area -->
+    {bannerHeading && (
+      <div class="banner-title">
+        <p class="banner-title__eyebrow">{bannerEyebrow}</p>
+        <h1 class="banner-title__heading">{bannerHeading}</h1>
+      </div>
+    )}
+
+  </header>
+
+  <!-- ==============================
+       MOBILE NAV DRAWER
+       ============================== -->
+  <div class="mobile-nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+
+  <div
+    class="mobile-nav-drawer"
+    id="mobile-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <button class="mobile-nav-close" id="nav-close" aria-label="Close navigation">✕</button>
+
+    <ul class="mobile-nav-links" role="list">
+      <li><a href="/">Home</a></li>
+
+      <!-- Portfolio expandable -->
+      <li>
+        <button id="mobile-portfolio-toggle" aria-expanded="false">+ Portfolio</button>
+        <ul class="mobile-nav-subitems" id="mobile-portfolio-sub" role="list">
+          {portfolioPages.map(p => (
+            <li><a href={p.href}>{p.label}</a></li>
+          ))}
+        </ul>
+      </li>
+
+      <li><a href="/contact" class="nav-contact">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <!-- ==============================
+       PAGE CONTENT SLOT
+       ============================== -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- ==============================
+       FOOTER
+       ============================== -->
+  <footer class="site-footer">
+    <ul class="site-footer__nav" role="list">
+      {portfolioPages.map(p => (
+        <li><a href={p.href}>{p.label}</a></li>
+      ))}
+    </ul>
+    <p class="site-footer__copy">©{new Date().getFullYear()} Skrinak Creative, Inc.</p>
+  </footer>
+
+
+  <!-- ==============================
+       MOBILE NAV SCRIPT
+       ============================== -->
+  <script>
+    const toggle    = document.getElementById('nav-toggle') as HTMLButtonElement;
+    const close     = document.getElementById('nav-close') as HTMLButtonElement;
+    const overlay   = document.getElementById('nav-overlay') as HTMLElement;
+    const drawer    = document.getElementById('mobile-drawer') as HTMLElement;
+    const portBtn   = document.getElementById('mobile-portfolio-toggle') as HTMLButtonElement;
+    const portSub   = document.getElementById('mobile-portfolio-sub') as HTMLElement;
+
+    function openNav() {
+      document.body.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      drawer.removeAttribute('aria-hidden');
+    }
+
+    function closeNav() {
+      document.body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
+
+    toggle?.addEventListener('click', openNav);
+    close?.addEventListener('click', closeNav);
+    overlay?.addEventListener('click', closeNav);
+
+    portBtn?.addEventListener('click', () => {
+      const isOpen = portSub.classList.toggle('open');
+      portBtn.setAttribute('aria-expanded', String(isOpen));
+      portBtn.textContent = (isOpen ? '− ' : '+ ') + 'Portfolio';
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeNav();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+---
+import PortfolioPage from '../layouts/PortfolioPage.astro';
+
+/**
+ * ADD YOUR BROCHURE IMAGES HERE.
+ * Copy exported images from Squarespace into:
+ *   public/images/brochures/
+ * Then list them below. The filenames shown are taken
+ * directly from the Squarespace page's image names.
+ */
+const images = [
+  { src: '/images/brochures/Aerospace_bro.png',      alt: 'Aviation & Aerospace in North Carolina brochure' },
+  { src: '/images/brochures/STYLE_GUIDE.png',         alt: 'Style guide brochure' },
+  { src: '/images/brochures/2015_TakeAway.png',       alt: '2015 takeaway brochure' },
+  { src: '/images/brochures/RxStudy_Card_brochure.png', alt: 'RxStudy card brochure' },
+  { src: '/images/brochures/BaseCamp_bro.png',        alt: 'BaseCamp brochure' },
+  { src: '/images/brochures/DRAKAbro.png',            alt: 'DRAKA brochure' },
+  { src: '/images/brochures/e-NC_BiennaI.png',        alt: 'e-NC Biennial brochure' },
+  { src: '/images/brochures/e-nc2.png',               alt: 'e-NC brochure 2' },
+  { src: '/images/brochures/Elite_brochure.png',      alt: 'Elite brochure' },
+  { src: '/images/brochures/gateway.png',             alt: 'Gateway brochure' },
+  { src: '/images/brochures/Healthcare_bro.png',      alt: 'Healthcare brochure' },
+  { src: '/images/brochures/Magnacet_bro.png',        alt: 'Magnacet brochure' },
+  { src: '/images/brochures/NCsmall.png',             alt: 'NC small business brochure' },
+  { src: '/images/brochures/Peacebro.png',            alt: 'Peace brochure' },
+  { src: '/images/brochures/Peacecamp.png',           alt: 'Peace camp brochure' },
+  { src: '/images/brochures/PNI_brochure.png',        alt: 'PNI brochure' },
+  { src: '/images/brochures/SEW.png',                 alt: 'SEW brochure' },
+];
+---
+
+<PortfolioPage title="Brochures" category="brochures" images={images} />
