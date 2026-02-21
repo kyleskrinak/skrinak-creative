@@ -1,0 +1,7 @@
+DirectoryPath: "dist"
+CheckExternal: true
+CheckInternal: true
+IgnoreCanonicalBrokenLinks: false
+IgnoreAltMissing: true
+IgnoreDirectoryMissingTrailingSlash: true
+IgnoreURLs: []
