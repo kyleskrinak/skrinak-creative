@@ -578,6 +578,14 @@ body.nav-open .mobile-nav-drawer {
   line-height: 1.6;
 }
 
+.contact-map {
+  width: 100%;
+  height: 400px;
+  margin-top: 60px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 /* =============================================
    FOOTER
@@ -670,6 +678,11 @@ body.nav-open .mobile-nav-drawer {
 
   .contact-content {
     padding: 40px 20px 60px;
+  }
+
+  .contact-map {
+    height: 300px;
+    margin-top: 40px;
   }
 
   .gallery-main {
