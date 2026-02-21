@@ -24,6 +24,7 @@
   --banner-height-inner: 335px;  /* portfolio/contact pages */
   --nav-height: 70px;
   --max-content-width: 1020px;
+  --max-home-width: 1100px;
 }
 
 *, *::before, *::after {
@@ -105,7 +106,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 40px;
+  padding: 18px 20px;
 }
 
 .site-nav__logo {
@@ -223,13 +224,11 @@ main {
 .banner-title {
   position: relative;
   z-index: 2;
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 0 20px 40px;
+  padding: 185px 20px 155px;
 }
 
 .banner-title__eyebrow {
@@ -245,7 +244,7 @@ main {
 .banner-title__heading {
   color: var(--color-text-light);
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: 86px;
   font-weight: 300;
   line-height: 1.1;
   letter-spacing: 0.02em;
@@ -500,7 +499,7 @@ body.nav-open .mobile-nav-drawer {
    ============================================= */
 
 .home-intro {
-  max-width: 820px;
+  max-width: var(--max-home-width);
   margin: 0 auto;
   padding: 96px 32px;
   text-align: center;
@@ -585,7 +584,7 @@ body.nav-open .mobile-nav-drawer {
 
 .site-footer {
   background: var(--color-footer-bg);
-  padding: 40px 40px 30px;
+  padding: 64px 16px 30px 12px;
 }
 
 .site-footer__nav {
@@ -614,6 +613,7 @@ body.nav-open .mobile-nav-drawer {
   font-size: 16px;
   color: #9c9999;
   opacity: 1;
+  margin-top: 24px;
 }
 
 
