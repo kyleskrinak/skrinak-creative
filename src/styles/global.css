@@ -622,7 +622,7 @@ body.nav-open .mobile-nav-drawer {
    RESPONSIVE
    ============================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 640px) {
   .site-nav__links,
   .site-nav__dropdown {
     display: none;
