@@ -646,6 +646,10 @@ body.nav-open .mobile-nav-drawer {
     font-size: 18px;
   }
 
+  .banner-title__heading {
+    font-size: 30px;
+  }
+
   :root {
     --banner-height: 360px;
     --banner-height-inner: 260px;
@@ -660,6 +664,7 @@ body.nav-open .mobile-nav-drawer {
   }
 
   .home-intro p {
+    font-size: 26px;
     line-height: 31.2px;
   }
 
@@ -686,5 +691,13 @@ body.nav-open .mobile-nav-drawer {
 
   .site-footer__nav {
     gap: 16px;
+  }
+
+  .site-footer__nav a {
+    font-size: 16px;
+  }
+
+  .site-footer__copy {
+    font-size: 16px;
   }
 }
