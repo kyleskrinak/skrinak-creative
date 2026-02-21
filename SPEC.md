@@ -30,14 +30,10 @@ Squarespace subscription. These licenses do NOT transfer on cancellation.
 | `futura-pt` | Primary — headings, nav, page titles, body |
 | `europa` | Secondary — body copy, footer copyright |
 
-### Replacement strategy — DECISION PENDING
-Options:
-1. **Purchase Futura PT** web license from MyFonts/Adobe (~$30–60), self-host WOFF2
-2. **Jost** (Google Fonts) — closest free geometric sans to Futura PT
-3. **DM Sans** — alternative free substitute
-
-> ⚠️ Font decision must be made before finalizing CSS. Update `--font-display` and
-> `--font-body` CSS variables in `global.css` once decided.
+### Replacement strategy — ✅ DECIDED: Jost
+Selected **Jost** (Google Fonts) — free, geometric sans inspired by Futura PT.
+- Implementation: Both `--font-display` and `--font-body` use Jost (weights 300, 500)
+- Google Fonts import: `family=Jost:wght@300;500`
 
 ### Exact usage specs (measured from live site)
 
@@ -204,9 +200,42 @@ All filenames taken directly from live site DOM:
 16. `PNI_brochure.png`
 17. `SEW.png`
 
-### Other portfolio pages — image lists PENDING
-Images for Folders, Logos & Identity, Newsletters & One-pagers, and Trade Show &
-Display have not yet been inventoried. Must be done before migration is complete.
+### Folders page — 6 images
+1. `CCfolder.png`
+2. `e-NC.png`
+3. `GSS.png`
+4. `H&M.png`
+5. `KPC.png`
+6. `Manufacturing_bro.png`
+
+### Logos & Identity page — 7 images
+1. `COE_logo.png`
+2. `interact_cleaned.png`
+3. `CClogo.png`
+4. `2020.png`
+5. `wmtlogo.png`
+6. `GSS.png`
+7. `KM_cleaned.png`
+
+### Newsletters & One-pagers page — 6 images
+1. `HfHnews.png`
+2. `DRAKAbulletins.png`
+3. `DRAKAnews.png`
+4. `Evokat_sellsheet.png`
+5. `HomeownerHapps.png`
+6. `HIV_sellsheet_v2.png`
+
+### Trade Show & Display page — 10 images
+1. `DRAKA_TS_Panels.png`
+2. `Plexus_wheel_OUTLINE.png`
+3. `DRAKAtrade.png`
+4. `Office_posters.png`
+5. `MoodleMoot_Poster.png`
+6. `17-133_CA-BIO2017_Samulski-24x36_P3_withmap.png`
+7. `VICTORYtrade.png`
+8. `2017_tradeshow_panel.png`
+9. `VICTORYtrade.png` (duplicate in gallery)
+10. `IMG_0030.png`
 
 ---
 
@@ -227,28 +256,22 @@ Display have not yet been inventoried. Must be done before migration is complete
 
 ---
 
-## Assets to Export from Squarespace
+## Assets Exported from Squarespace ✅
 
-Before cancelling Squarespace, export these files:
+All assets have been successfully exported and organized in `src/assets/images/`:
 
-### Required
-- [ ] `logo.png` — site logo (159×100px as rendered)
-- [ ] `Banner.png` — home page banner background
-- [ ] `Banner_thinner.png` — inner page banner background
-- [ ] All brochure images (17 files listed above)
-- [ ] All folder images (inventory pending)
-- [ ] All logos & identity images (inventory pending)
-- [ ] All newsletter images (inventory pending)
-- [ ] All trade show & display images (inventory pending)
-- [ ] Favicon
+### Collected
+- [x] `SCI_logomark_KO.png` — site logo
+- [x] `Banner.png` — home page banner background (322K)
+- [x] `Banner_thinner.png` — inner page banner background (208K)
+- [x] All brochure images (17 files)
+- [x] All folder images (6 files)
+- [x] All logos & identity images (7 files)
+- [x] All newsletter images (6 files)
+- [x] All trade show & display images (9 files)
+- [ ] Favicon (not found in Squarespace export — may need to source separately)
 
-### Export method
-```bash
-wget --mirror --convert-links --adjust-extension \
-     --page-requisites --no-parent \
-     https://skrinakcreative.com
-```
-Or use browser DevTools → Network → filter by Img → save all image responses.
+### Total: 47 portfolio + banner/logo images ready for use
 
 ---
 
@@ -275,7 +298,5 @@ Or use browser DevTools → Network → filter by Img → save all image respons
 
 ## Open Decisions
 
-1. **Font replacement** — Futura PT purchase vs. Jost vs. other free substitute
-2. **Image inventory** — catalog remaining 4 portfolio pages
-3. **Google Maps embed** — keep iframe or replace with static map image
-4. **Banner images** — confirm `Banner.png` vs `Banner_thinner.png` filenames match exports
+1. **Google Maps embed** — keep iframe or replace with static map image
+2. **Banner images** — confirm `Banner.png` vs `Banner_thinner.png` filenames match exports

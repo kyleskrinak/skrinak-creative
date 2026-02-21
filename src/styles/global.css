@@ -3,26 +3,27 @@
    Mirrors squarespace site layout precisely
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;500&display=swap');
 
 :root {
-  --color-bg-dark: #1a1a1a;
+  --color-bg-dark: #201a16;
   --color-bg-light: #ffffff;
-  --color-text-light: #ffffff;
-  --color-text-dark: #222222;
+  --color-text-light: #f5f5f5;
+  --color-text-dark: #1f1f1f;
   --color-text-muted: #666666;
-  --color-accent: #8ab04a;       /* green from logo */
+  --color-nav-link: #9c9999;
+  --color-accent: #9cec41;       /* lime green */
   --color-border: rgba(255,255,255,0.2);
-  --color-footer-bg: #1a1a1a;
-  --color-footer-text: #aaaaaa;
+  --color-footer-bg: #201a16;
+  --color-footer-text: #9c9999;
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Montserrat', sans-serif;
+  --font-display: 'Jost', sans-serif;
+  --font-body: 'Jost', sans-serif;
 
-  --banner-height: 480px;
-  --banner-height-inner: 340px; /* portfolio/contact pages — slightly shorter */
+  --banner-height: 590px;
+  --banner-height-inner: 335px;  /* portfolio/contact pages */
   --nav-height: 70px;
-  --max-content-width: 1100px;
+  --max-content-width: 1020px;
 }
 
 *, *::before, *::after {
@@ -86,7 +87,7 @@ img {
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.35);
+  background: rgba(32, 26, 22, 0.7);
   z-index: 1;
 }
 
@@ -123,7 +124,7 @@ img {
 }
 
 .site-nav__links a {
-  color: var(--color-text-light);
+  color: var(--color-nav-link);
   font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 400;
@@ -625,7 +626,7 @@ body.nav-open .mobile-nav-drawer {
    RESPONSIVE
    ============================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .site-nav__links,
   .site-nav__dropdown {
     display: none;

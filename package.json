@@ -5,10 +5,16 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test:visual": "playwright test --project=visual",
+    "test:visual:baseline": "playwright test --project=visual --update-snapshots",
+    "test:visual:report": "playwright show-report"
   },
   "dependencies": {
     "astro": "^4.16.0",
     "glightbox": "^3.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
   }
 }
