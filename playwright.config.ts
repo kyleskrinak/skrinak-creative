@@ -10,15 +10,11 @@ export default defineConfig({
   projects: [
     {
       name: 'desktop',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'tablet',
-      use: { ...devices['iPad Pro'] }, // 1024px width
+      use: { ...devices['Desktop Chrome'] }, // 1440px
     },
     {
       name: 'mobile',
-      use: { ...devices['iPhone 12'] }, // 390px width (below 800px breakpoint)
+      use: { ...devices['iPhone 12'] }, // 390px (below 640px breakpoint)
     },
   ],
   webServer: process.env.TEST_URL ? undefined : {
