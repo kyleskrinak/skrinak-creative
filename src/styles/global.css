@@ -40,7 +40,7 @@ body {
   font-family: var(--font-body);
   font-weight: 300;
   color: var(--color-text-dark);
-  background: var(--color-bg-light);
+  background: var(--color-bg-dark);
   line-height: 1.7;
 }
 
@@ -54,6 +54,9 @@ img {
   display: block;
 }
 
+main {
+  background: var(--color-bg-light);
+}
 
 /* =============================================
    HEADER / BANNER
@@ -103,7 +106,6 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 18px 40px;
-  height: var(--nav-height);
 }
 
 .site-nav__logo {
@@ -112,7 +114,7 @@ img {
 }
 
 .site-nav__logo img {
-  height: 52px;
+  height: 100px;
   width: auto;
 }
 
@@ -233,7 +235,7 @@ img {
 .banner-title__eyebrow {
   color: var(--color-text-light);
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 28px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -500,14 +502,14 @@ body.nav-open .mobile-nav-drawer {
 .home-intro {
   max-width: 820px;
   margin: 0 auto;
-  padding: 70px 40px 80px;
+  padding: 96px 32px;
   text-align: center;
 }
 
 .home-intro p {
   font-size: 28px;
-  line-height: 1.85;
-  color: var(--color-text-light);
+  line-height: 38.4px;
+  color: var(--color-text-dark);
   font-weight: 300;
 }
 
@@ -610,8 +612,8 @@ body.nav-open .mobile-nav-drawer {
 .site-footer__copy {
   text-align: center;
   font-size: 16px;
-  color: var(--color-footer-text);
-  opacity: 0.6;
+  color: #9c9999;
+  opacity: 1;
 }
 
 
@@ -635,6 +637,14 @@ body.nav-open .mobile-nav-drawer {
     padding: 16px 20px;
   }
 
+  .site-nav__logo img {
+    height: 52px;
+  }
+
+  .banner-title__eyebrow {
+    font-size: 18px;
+  }
+
   :root {
     --banner-height: 360px;
     --banner-height-inner: 260px;
@@ -646,6 +656,10 @@ body.nav-open .mobile-nav-drawer {
 
   .home-intro {
     padding: 50px 20px 60px;
+  }
+
+  .home-intro p {
+    line-height: 31.2px;
   }
 
   .contact-content {
