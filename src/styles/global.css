@@ -578,10 +578,19 @@ body.nav-open .mobile-nav-drawer {
   line-height: 1.6;
 }
 
+.contact-map-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-text-dark);
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+
 .contact-map {
   width: 100%;
   height: 400px;
-  margin-top: 60px;
+  margin-top: 0;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -680,9 +689,15 @@ body.nav-open .mobile-nav-drawer {
     padding: 40px 20px 60px;
   }
 
+  .contact-map-title {
+    font-size: 1.2rem;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
   .contact-map {
     height: 300px;
-    margin-top: 40px;
+    margin-top: 0;
   }
 
   .gallery-main {
