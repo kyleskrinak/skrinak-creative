@@ -4,18 +4,23 @@ This page tracks test runs and any issues discovered.
 
 ## Baselines
 
-### Live Site (Squarespace) Baselines
+### Live Site (Squarespace) Baselines — CURRENT REFERENCE
 - **Location**: `tests/live-site-baselines/`
 - **Purpose**: Reference design for pixel-faithful reproduction
+- **Coverage**: 3 viewports × 7 pages × 2 test types = 42 tests
+  - Desktop (1440px)
+  - Tablet (1024px)
+  - Mobile (390px — below 800px breakpoint)
 - **Created**: [2026-02-21]
 - **Command**: `npx playwright test --config=playwright.live-site.config.ts`
-- **All pages captured**: home, brochures, folders, logos-identity, newsletters, trade-show-display, contact
-- **All 7 pages pass without console errors** ✅
+- **Status**: All pages pass without console errors ✅
 
 ### Local (Astro) Site Baselines
 - **Location**: `tests/visual.spec.ts-snapshots/`
 - **Purpose**: Reference design for ongoing Astro development
+- **Coverage**: Same as live-site (3 viewports × 7 pages × 2 tests)
 - **Test command**: `npm run test:visual`
+- **Note**: Will become the reference baseline once Astro version is finalized and goes live
 
 ## Latest Test Run
 

@@ -4,10 +4,19 @@ This section covers testing strategies and quality validation for the portfolio 
 
 ## Testing Types
 
-### Visual Regression Testing
+### Visual Regression Testing — Multi-Breakpoint
 - **Screenshot-based testing** to catch unintended UI changes
-- Run with: `npm run test:visual`
-- Tests all key pages and components
+- Tests across **3 viewports**: Desktop (1440px), Tablet (1024px), Mobile (390px)
+- Covers Squarespace breakpoint at 800px (mobile below, desktop above)
+- Tests all 7 pages × 2 test types (console errors + visual snapshot) × 3 breakpoints = 42 tests total
+
+Run specific breakpoint:
+```bash
+npm run test:visual              # All breakpoints
+npm run test:visual:desktop      # Desktop only
+npm run test:visual:tablet       # Tablet only (1024px)
+npm run test:visual:mobile       # Mobile only (390px — below 800px breakpoint)
+```
 
 ### Link Checking
 - **Verify all links work** (internal navigation, images, external links if any)

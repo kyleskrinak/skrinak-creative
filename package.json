@@ -6,8 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test:visual": "playwright test --project=visual",
-    "test:visual:baseline": "playwright test --project=visual --update-snapshots",
+    "test:visual": "playwright test",
+    "test:visual:desktop": "playwright test --project=desktop",
+    "test:visual:tablet": "playwright test --project=tablet",
+    "test:visual:mobile": "playwright test --project=mobile",
+    "test:visual:baseline": "playwright test --update-snapshots",
     "test:visual:report": "playwright show-report"
   },
   "dependencies": {

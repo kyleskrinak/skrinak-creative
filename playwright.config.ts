@@ -9,8 +9,16 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'visual',
+      name: 'desktop',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'tablet',
+      use: { ...devices['iPad Pro'] }, // 1024px width
+    },
+    {
+      name: 'mobile',
+      use: { ...devices['iPhone 12'] }, // 390px width (below 800px breakpoint)
     },
   ],
   webServer: process.env.TEST_URL ? undefined : {

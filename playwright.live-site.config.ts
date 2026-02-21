@@ -17,8 +17,16 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'live-site',
+      name: 'live-site-desktop',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'live-site-tablet',
+      use: { ...devices['iPad Pro'] },
+    },
+    {
+      name: 'live-site-mobile',
+      use: { ...devices['iPhone 12'] },
     },
   ],
 });
