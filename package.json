@@ -16,6 +16,7 @@
     "test": "npm run test:visual && npm run test:links"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
     "astro": "^5.17.3",
     "glightbox": "^3.3.0",
     "leaflet": "^1.9.4"
