@@ -1,20 +1,18 @@
 ---
-import PortfolioPage from '../layouts/PortfolioPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OptimizedGallery from '../components/OptimizedGallery.astro';
+import { images } from '../utils/images';
 
-/**
- * ADD YOUR LOGOS & IDENTITY IMAGES HERE.
- * Copy exported images from Squarespace into:
- *   public/images/logos-identity/
- */
-const images = [
-  { src: '/images/logos/COE_logo.png',        alt: 'COE logo' },
-  { src: '/images/logos/interact_cleaned.png', alt: 'Interact logo' },
-  { src: '/images/logos/CClogo.png',           alt: 'CC logo' },
-  { src: '/images/logos/2020.png',             alt: '2020 logo' },
-  { src: '/images/logos/wmtlogo.png',          alt: 'WMT logo' },
-  { src: '/images/logos/GSS.png',              alt: 'GSS logo' },
-  { src: '/images/logos/KM_cleaned.png',       alt: 'KM logo' },
-];
+const galleryImages = images.logos;
 ---
 
-<PortfolioPage title="Logos & Identity" category="logos-identity" images={images} />
+<BaseLayout
+  title="Logos & Identity"
+  bannerHeading="Logos & Identity"
+  isHome={false}
+>
+  <div class="page-content">
+    <h2 class="page-content__title">Logos & Identity</h2>
+    <OptimizedGallery images={galleryImages} category="logos-identity" />
+  </div>
+</BaseLayout>

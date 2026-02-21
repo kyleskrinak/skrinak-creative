@@ -1,23 +1,18 @@
 ---
-import PortfolioPage from '../layouts/PortfolioPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OptimizedGallery from '../components/OptimizedGallery.astro';
+import { images } from '../utils/images';
 
-/**
- * ADD YOUR TRADE SHOW & DISPLAY IMAGES HERE.
- * Copy exported images from Squarespace into:
- *   public/images/trade-show-display/
- */
-const images = [
-  { src: '/images/trade-show/DRAKA_TS_Panels.png',          alt: 'DRAKA trade show panels' },
-  { src: '/images/trade-show/Plexus_wheel_OUTLINE.png',     alt: 'Plexus wheel display' },
-  { src: '/images/trade-show/DRAKAtrade.png',               alt: 'DRAKA trade show' },
-  { src: '/images/trade-show/Office_posters.png',           alt: 'Office posters' },
-  { src: '/images/trade-show/MoodleMoot_Poster.png',        alt: 'MoodleMoot poster' },
-  { src: '/images/trade-show/17-133_CA-BIO2017_Samulski-24x36_P3_withmap.png', alt: 'CA Bio 2017 conference poster' },
-  { src: '/images/trade-show/VICTORYtrade.png',             alt: 'Victory trade show display' },
-  { src: '/images/trade-show/2017_tradeshow_panel.png',     alt: '2017 trade show panel' },
-  { src: '/images/trade-show/VICTORYtrade.png',             alt: 'Victory trade show display (alternate)' },
-  { src: '/images/trade-show/IMG_0030.png',                 alt: 'Trade show display' },
-];
+const galleryImages = images.tradeShow;
 ---
 
-<PortfolioPage title="Trade Show & Display" category="trade-show-display" images={images} />
+<BaseLayout
+  title="Trade Show & Display"
+  bannerHeading="Trade Show & Display"
+  isHome={false}
+>
+  <div class="page-content">
+    <h2 class="page-content__title">Trade Show & Display</h2>
+    <OptimizedGallery images={galleryImages} category="trade-show-display" />
+  </div>
+</BaseLayout>

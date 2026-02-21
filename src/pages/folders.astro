@@ -1,19 +1,18 @@
 ---
-import PortfolioPage from '../layouts/PortfolioPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OptimizedGallery from '../components/OptimizedGallery.astro';
+import { images } from '../utils/images';
 
-/**
- * ADD YOUR FOLDER IMAGES HERE.
- * Copy exported images from Squarespace into:
- *   public/images/folders/
- */
-const images = [
-  { src: '/images/folders/CCfolder.png',          alt: 'CC folder' },
-  { src: '/images/folders/e-NC.png',              alt: 'e-NC folder' },
-  { src: '/images/folders/GSS.png',               alt: 'GSS folder' },
-  { src: "/images/folders/H&M.png",               alt: 'H&M folder' },
-  { src: '/images/folders/KPC.png',               alt: 'KPC folder' },
-  { src: '/images/folders/Manufacturing_bro.png', alt: 'Manufacturing folder' },
-];
+const galleryImages = images.folders;
 ---
 
-<PortfolioPage title="Folders" category="folders" images={images} />
+<BaseLayout
+  title="Folders"
+  bannerHeading="Folders"
+  isHome={false}
+>
+  <div class="page-content">
+    <h2 class="page-content__title">Folders</h2>
+    <OptimizedGallery images={galleryImages} category="folders" />
+  </div>
+</BaseLayout>

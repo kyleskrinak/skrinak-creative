@@ -1,19 +1,18 @@
 ---
-import PortfolioPage from '../layouts/PortfolioPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OptimizedGallery from '../components/OptimizedGallery.astro';
+import { images } from '../utils/images';
 
-/**
- * ADD YOUR NEWSLETTER / ONE-PAGER IMAGES HERE.
- * Copy exported images from Squarespace into:
- *   public/images/newsletters/
- */
-const images = [
-  { src: '/images/newsletters/HfHnews.png',           alt: 'Habitat for Humanity newsletter' },
-  { src: '/images/newsletters/DRAKAbulletins.png',    alt: 'DRAKA bulletins' },
-  { src: '/images/newsletters/DRAKAnews.png',         alt: 'DRAKA newsletter' },
-  { src: '/images/newsletters/Evokat_sellsheet.png',  alt: 'Evokat sell sheet' },
-  { src: '/images/newsletters/HomeownerHapps.png',    alt: 'Homeowner Happenings newsletter' },
-  { src: '/images/newsletters/HIV_sellsheet_v2.png',  alt: 'HIV sell sheet' },
-];
+const galleryImages = images.newsletters;
 ---
 
-<PortfolioPage title="Newsletters & One-pagers" category="newsletters" images={images} />
+<BaseLayout
+  title="Newsletters & One-pagers"
+  bannerHeading="Newsletters & One-pagers"
+  isHome={false}
+>
+  <div class="page-content">
+    <h2 class="page-content__title">Newsletters & One-pagers</h2>
+    <OptimizedGallery images={galleryImages} category="newsletters" />
+  </div>
+</BaseLayout>

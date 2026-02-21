@@ -1,9 +1,14 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/global.css';
+
+// Import optimized images
+import bannerHome from '../assets/images/Banner.png';
+import bannerInner from '../assets/images/Banner_thinner.png';
+import logoImg from '../assets/images/logo.png';
 
 interface Props {
   title: string;
-  bannerImage?: string;
   bannerEyebrow?: string;
   bannerHeading?: string;
   isHome?: boolean;
@@ -11,11 +16,13 @@ interface Props {
 
 const {
   title,
-  bannerImage = '/images/banner.png',
   bannerEyebrow = 'Skrinak Creative, Inc.',
   bannerHeading,
   isHome = false,
 } = Astro.props;
+
+// Select banner based on page type
+const bannerImage = isHome ? bannerHome : bannerInner;
 
 const currentPath = Astro.url.pathname;
 
@@ -45,12 +52,13 @@ const portfolioPages = [
        ============================== -->
   <header class={`site-header${isHome ? '' : ' inner-page'}`} id="header">
 
-    <img
+    <Image
       class="banner-bg"
       src={bannerImage}
       alt=""
       role="presentation"
       loading="eager"
+      format="webp"
     />
     <div class="banner-overlay"></div>
 
@@ -59,7 +67,7 @@ const portfolioPages = [
 
       <!-- Logo -->
       <a href="/" class="site-nav__logo" aria-label="Skrinak Creative home">
-        <img src="/images/logo.png" alt="Skrinak Creative, Inc." />
+        <Image src={logoImg} alt="Skrinak Creative, Inc." />
       </a>
 
       <!-- Desktop links -->

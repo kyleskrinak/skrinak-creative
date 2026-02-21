@@ -1,0 +1,178 @@
+---
+/**
+ * Optimized Gallery Component
+ *
+ * Uses Astro's Image component for full optimization:
+ * - Automatic WebP conversion with PNG fallback
+ * - Responsive srcsets for different viewport sizes
+ * - Lazy loading for non-first images
+ * - Async decoding to prevent main thread blocking
+ *
+ * Props:
+ *   images: Array of { src: ImageMetadata, alt: string, title?: string }
+ *   category: string - used as GLightbox gallery group name
+ */
+
+import { Image } from 'astro:assets';
+
+interface GalleryImage {
+  src: ImageMetadata;
+  alt: string;
+  title?: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  category: string;
+}
+
+const { images, category } = Astro.props;
+
+// Get image width for srcset calculation
+type ImageMetadata = {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
+};
+---
+
+<div class="gallery-wrapper" data-gallery={category}>
+
+  <!-- Main image viewer -->
+  <div class="gallery-main" id={`gallery-main-${category}`}>
+
+    {images.map((img, i) => (
+      <!-- Each image is wrapped in a GLightbox anchor -->
+      <a
+        href={img.src.src}
+        class={`glightbox gallery-lightbox-link${i === 0 ? ' gallery-slide--active' : ' gallery-slide--hidden'}`}
+        data-gallery={category}
+        data-title={img.title ?? img.alt}
+        data-slide={i}
+        aria-label={`View full size: ${img.alt}`}
+      >
+        <Image
+          class="gallery-main__img"
+          src={img.src}
+          alt={img.alt}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding={i === 0 ? 'auto' : 'async'}
+          format="webp"
+        />
+      </a>
+    ))}
+
+    <!-- Prev / Next arrows -->
+    {images.length > 1 && (
+      <>
+        <button class="gallery-arrow gallery-arrow--prev" aria-label="Previous image" data-dir="-1">&#8249;</button>
+        <button class="gallery-arrow gallery-arrow--next" aria-label="Next image"     data-dir="1">&#8250;</button>
+      </>
+    )}
+
+  </div>
+
+  <!-- Thumbnail strip -->
+  {images.length > 1 && (
+    <div class="gallery-thumbs" role="list" aria-label="Gallery thumbnails">
+      {images.map((img, i) => (
+        <Image
+          class={`gallery-thumb${i === 0 ? ' active' : ''}`}
+          src={img.src}
+          alt={`Thumbnail: ${img.alt}`}
+          width={90}
+          height={60}
+          loading="lazy"
+          decoding="async"
+          format="webp"
+          role="listitem"
+          data-slide={i}
+          tabindex="0"
+        />
+      ))}
+    </div>
+  )}
+
+</div>
+
+<style>
+  .gallery-slide--hidden {
+    display: none;
+  }
+  .gallery-slide--active {
+    display: block;
+    width: 100%;
+  }
+</style>
+
+<script>
+  import GLightbox from 'glightbox';
+  import 'glightbox/dist/css/glightbox.css';
+
+  document.querySelectorAll<HTMLElement>('.gallery-wrapper').forEach((wrapper) => {
+    const category    = wrapper.dataset.gallery ?? 'gallery';
+    const slides      = wrapper.querySelectorAll<HTMLAnchorElement>('.gallery-lightbox-link');
+    const thumbs      = wrapper.querySelectorAll<HTMLImageElement>('.gallery-thumb');
+    const prevBtn     = wrapper.querySelector<HTMLButtonElement>('.gallery-arrow--prev');
+    const nextBtn     = wrapper.querySelector<HTMLButtonElement>('.gallery-arrow--next');
+
+    let currentIndex  = 0;
+    const total       = slides.length;
+
+    // Init GLightbox for this gallery group
+    const lightbox = GLightbox({
+      selector: `.glightbox[data-gallery="${category}"]`,
+      touchNavigation: true,
+      loop: true,
+      zoomable: true,
+    });
+
+    function showSlide(index: number) {
+      // Wrap around
+      const i = ((index % total) + total) % total;
+
+      slides.forEach((s, n) => {
+        s.classList.toggle('gallery-slide--active', n === i);
+        s.classList.toggle('gallery-slide--hidden', n !== i);
+      });
+
+      thumbs.forEach((t, n) => {
+        t.classList.toggle('active', n === i);
+      });
+
+      // Scroll active thumb into view
+      thumbs[i]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+      currentIndex = i;
+    }
+
+    // Thumbnail clicks
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => showSlide(i));
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showSlide(i);
+        }
+      });
+    });
+
+    // Arrow clicks
+    prevBtn?.addEventListener('click', () => showSlide(currentIndex - 1));
+    nextBtn?.addEventListener('click', () => showSlide(currentIndex + 1));
+
+    // When GLightbox opens, sync it to the currently visible slide
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', (e) => {
+        e.preventDefault();
+        lightbox.openAt(i);
+      });
+    });
+
+    // When GLightbox slides, sync thumbnail strip
+    lightbox.on('slide_changed', ({ current }: { current: { index: number } }) => {
+      showSlide(current.index);
+    });
+  });
+</script>

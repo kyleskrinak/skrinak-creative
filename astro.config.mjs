@@ -7,6 +7,12 @@ export default defineConfig({
   integrations: [
     sitemap(),
   ],
+  image: {
+    // Enable Astro's built-in image optimization
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
   // Vite optimization for better performance
   vite: {
     build: {
