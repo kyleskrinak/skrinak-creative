@@ -11,7 +11,6 @@ export default defineConfig({
     {
       name: 'visual',
       use: { ...devices['Desktop Chrome'] },
-      testMatch: '**/*.visual.spec.ts',
     },
   ],
   webServer: {
