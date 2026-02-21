@@ -21,10 +21,6 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'compare-tablet',
-      use: { ...devices['iPad Pro'] },
-    },
-    {
       name: 'compare-mobile',
       use: { ...devices['iPhone 12'] },
     },
