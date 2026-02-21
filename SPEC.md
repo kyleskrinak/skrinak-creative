@@ -56,8 +56,8 @@ All values measured via `window.getComputedStyle()` on the live site.
 
 | Token | Value | Hex | Usage |
 |---|---|---|---|
-| `--color-dark` | `rgb(32, 26, 22)` | `#201a16` | Banner bg, footer bg, body bg |
-| `--color-overlay` | `rgba(32, 26, 22, 0.7)` | `#201a16` at 70% | Banner image overlay |
+| `--color-dark` | `rgb(30, 25, 22)` | `#1e1916` | Banner bg, footer bg, body bg |
+| `--color-overlay` | `rgba(30, 25, 22, 0.7)` | `#1e1916` at 70% | Banner image overlay |
 | `--color-text-dark` | `rgb(31, 31, 31)` | `#1f1f1f` | Headings, body text on white |
 | `--color-text-light` | `rgb(245, 245, 245)` | `#f5f5f5` | Text on dark backgrounds |
 | `--color-nav-link` | `rgb(156, 153, 153)` | `#9c9999` | Header nav link color |

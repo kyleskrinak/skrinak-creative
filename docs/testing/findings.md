@@ -24,20 +24,48 @@ This page tracks test runs and any issues discovered.
 
 ## Latest Test Run
 
-- **Date**: [To be updated]
-- **Status**: Baseline created
-- **Tests Run**: Visual regression (14 tests: 7 pages × 2 tests each)
-- **Results**: All pass against baselines
+- **Date**: 2026-02-21
+- **Status**: All tests passing
+- **Tests Run**:
+  - Visual regression: 60 tests (7 pages × 3 breakpoints × 2 test types)
+  - Navigation: 18 tests (Desktop 1440px + Mobile 390px, across 3 breakpoint projects)
+- **Results**: 78 total tests passing
 
-### Summary
+### Visual Regression Test Results
 
-[Ongoing test results to be recorded here as Astro development progresses]
+**60/60 passing** (7 pages × 3 breakpoints × 2 test types)
+
+Test format for each page:
+1. Renders without console errors
+2. Full-page visual snapshot comparison
+
+Pages tested: home, brochures, folders, logos-identity, newsletters, trade-show-display, contact
+
+Breakpoints: Desktop 1440px, Tablet 1024px, Mobile 390px (matches Squarespace live site)
+
+**Changes since live site baseline**:
+- Google Maps iframe removed from contact page
+- All other pages match live-site Squarespace design pixel-faithfully
+
+### Navigation Test Results
+
+**18/18 passing** (organized by viewport)
+
+**Desktop (1440px) Tests** (3 tests):
+- ✅ Portfolio dropdown opens on hover
+- ✅ Nav links navigate correctly (Home, Contact Us)
+- ✅ Footer portfolio links work (Brochures)
+
+**Mobile (390px) Tests** (3 tests):
+- ✅ Hamburger opens drawer
+- ✅ Portfolio submenu expands
+- ✅ Nav links work (Contact Us)
 
 ---
 
 ## Known Issues
 
-[Issues to be documented as they're found and fixed]
+None currently. All 78 tests passing.
 
 ---
 

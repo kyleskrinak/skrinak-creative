@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;500&display=swap');
 
 :root {
-  --color-bg-dark: #201a16;
+  --color-bg-dark: #1e1916;
   --color-bg-light: #ffffff;
   --color-text-light: #f5f5f5;
   --color-text-dark: #1f1f1f;
@@ -14,8 +14,8 @@
   --color-nav-link: #9c9999;
   --color-accent: #9cec41;       /* lime green */
   --color-border: rgba(255,255,255,0.2);
-  --color-footer-bg: #201a16;
-  --color-footer-text: #9c9999;
+  --color-footer-bg: #1e1916;
+  --color-footer-text: #9cec41;
 
   --font-display: 'Jost', sans-serif;
   --font-body: 'Jost', sans-serif;
@@ -87,7 +87,7 @@ img {
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(32, 26, 22, 0.7);
+  background: rgba(30, 25, 22, 0.7);
   z-index: 1;
 }
 
@@ -126,7 +126,7 @@ img {
 .site-nav__links a {
   color: var(--color-nav-link);
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -145,7 +145,7 @@ img {
 .site-nav__dropdown-toggle {
   color: var(--color-text-light);
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -505,9 +505,9 @@ body.nav-open .mobile-nav-drawer {
 }
 
 .home-intro p {
-  font-size: 1.05rem;
+  font-size: 28px;
   line-height: 1.85;
-  color: #444;
+  color: var(--color-text-light);
   font-weight: 300;
 }
 
@@ -597,7 +597,7 @@ body.nav-open .mobile-nav-drawer {
 
 .site-footer__nav a {
   color: var(--color-footer-text);
-  font-size: 0.72rem;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   transition: color 0.2s;
@@ -609,7 +609,7 @@ body.nav-open .mobile-nav-drawer {
 
 .site-footer__copy {
   text-align: center;
-  font-size: 0.78rem;
+  font-size: 16px;
   color: var(--color-footer-text);
   opacity: 0.6;
 }
