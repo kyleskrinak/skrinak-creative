@@ -3,7 +3,7 @@
    Mirrors squarespace site layout precisely
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;300;500&display=swap');
 
 :root {
   --color-bg-dark: #1e1916;
@@ -229,6 +229,7 @@ main {
   align-items: center;
   text-align: center;
   padding: 185px 20px 155px;
+  margin-top: -70px;
 }
 
 .banner-title__eyebrow {
@@ -245,7 +246,7 @@ main {
   color: var(--color-text-light);
   font-family: var(--font-display);
   font-size: 86px;
-  font-weight: 300;
+  font-weight: 100;
   line-height: 1.1;
   letter-spacing: 0.02em;
 }
@@ -598,7 +599,7 @@ body.nav-open .mobile-nav-drawer {
 
 .site-footer__nav a {
   color: var(--color-footer-text);
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   transition: color 0.2s;
