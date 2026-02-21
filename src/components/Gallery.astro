@@ -48,6 +48,7 @@ const { images, category } = Astro.props;
           src={img.src}
           alt={img.alt}
           loading={i === 0 ? 'eager' : 'lazy'}
+          decoding={i === 0 ? 'auto' : 'async'}
         />
       </a>
     ))}
@@ -71,6 +72,7 @@ const { images, category } = Astro.props;
           src={img.src}
           alt={`Thumbnail: ${img.alt}`}
           loading="lazy"
+          decoding="async"
           role="listitem"
           data-slide={i}
           tabindex="0"

@@ -53,6 +53,21 @@ a {
 img {
   max-width: 100%;
   display: block;
+  /* Performance: enable hardware acceleration for animations */
+  will-change: auto;
+}
+
+/* Optimize gallery images for performance */
+.gallery-main__img,
+.gallery-thumb {
+  /* Prevent layout shift while image loads */
+  contain: layout style paint;
+}
+
+/* Optimize logo rendering */
+.site-nav__logo img {
+  /* Prevent layout shift */
+  contain: layout style paint;
 }
 
 main {
