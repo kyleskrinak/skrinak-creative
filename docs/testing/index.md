@@ -20,15 +20,27 @@ This section covers testing strategies and quality validation for the portfolio 
 
 ## Running Tests
 
+### Local (Astro) Site
 ```bash
-# Run all tests locally (dev server should be running)
+# Run all tests against localhost:4321 (dev server auto-starts)
 npm run test:visual
 
-# Update visual regression baselines (if intended changes)
+# Update local baselines (if you intentionally changed design)
 npm run test:visual:baseline
 
 # View last test report
 npm run test:visual:report
+```
+
+### Live (Squarespace) Site
+The live site baselines are captured in `tests/live-site-baselines/` for pixel-faithful reproduction comparison.
+
+```bash
+# Test against live Squarespace site (reference only)
+npx playwright test --config=playwright.live-site.config.ts
+
+# Update live-site baselines (captures current design for reference)
+npx playwright test --config=playwright.live-site.config.ts --update-snapshots
 ```
 
 ## Test Coverage

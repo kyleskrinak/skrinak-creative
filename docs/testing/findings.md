@@ -2,16 +2,31 @@
 
 This page tracks test runs and any issues discovered.
 
+## Baselines
+
+### Live Site (Squarespace) Baselines
+- **Location**: `tests/live-site-baselines/`
+- **Purpose**: Reference design for pixel-faithful reproduction
+- **Created**: [2026-02-21]
+- **Command**: `npx playwright test --config=playwright.live-site.config.ts`
+- **All pages captured**: home, brochures, folders, logos-identity, newsletters, trade-show-display, contact
+- **All 7 pages pass without console errors** ✅
+
+### Local (Astro) Site Baselines
+- **Location**: `tests/visual.spec.ts-snapshots/`
+- **Purpose**: Reference design for ongoing Astro development
+- **Test command**: `npm run test:visual`
+
 ## Latest Test Run
 
-- **Date**: [To be updated after first test run]
-- **Status**: [Pending]
-- **Tests Run**: Visual regression, link checking
-- **Results**: [To be updated]
+- **Date**: [To be updated]
+- **Status**: Baseline created
+- **Tests Run**: Visual regression (14 tests: 7 pages × 2 tests each)
+- **Results**: All pass against baselines
 
 ### Summary
 
-[Test results to be recorded here after running `npm run test:visual`]
+[Ongoing test results to be recorded here as Astro development progresses]
 
 ---
 

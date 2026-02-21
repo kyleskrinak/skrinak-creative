@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: 0,
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: process.env.TEST_URL || 'http://localhost:4321',
   },
   projects: [
     {
@@ -13,7 +13,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
+  webServer: process.env.TEST_URL ? undefined : {
     command: 'npm run dev',
     url: 'http://localhost:4321',
     reuseExistingServer: true,
