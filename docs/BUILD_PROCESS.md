@@ -5,6 +5,8 @@
 **Status:** ✅ Live and production-ready
 **Repository:** github.com/kyleskrinak/skrinak-creative
 
+**Discovery Phase:** See [DISCOVERY.md](./DISCOVERY.md) for initial analysis, technology evaluation, and design specification extraction from the live Squarespace site.
+
 ---
 
 ## Table of Contents
