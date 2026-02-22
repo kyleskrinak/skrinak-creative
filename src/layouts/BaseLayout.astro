@@ -26,6 +26,9 @@ const bannerImage = isHome ? bannerHome : bannerInner;
 
 const currentPath = Astro.url.pathname;
 
+// Build canonical URL (always use www version)
+const canonicalUrl = new URL(currentPath, 'https://www.skrinakcreative.com').toString();
+
 const portfolioPages = [
   { label: 'Brochures',              href: '/brochures' },
   { label: 'Folders',                href: '/folders' },
@@ -42,6 +45,7 @@ const portfolioPages = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Skrinak Creative, Inc. — Graphic Design. Full-service design studio specializing in corporate identity, brochures, trade show displays, and more." />
   <title>{title} — Skrinak Creative, Inc.</title>
+  <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/png" href="/favicon.png" />
 </head>
 
