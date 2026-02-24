@@ -21,6 +21,9 @@ const {
   isHome = false,
 } = Astro.props;
 
+// Get GA4 property ID from environment
+const gaPropertyId = import.meta.env.PUBLIC_GA_PROPERTY_ID;
+
 // Select banner based on page type
 const bannerImage = isHome ? bannerHome : bannerInner;
 
@@ -47,6 +50,19 @@ const portfolioPages = [
   <title>{title} — Skrinak Creative, Inc.</title>
   <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/png" href="/favicon.png" />
+
+  {/* Google Analytics 4 */}
+  {gaPropertyId && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaPropertyId}`}></script>
+      <script define:vars={{ gaPropertyId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaPropertyId);
+      </script>
+    </>
+  )}
 </head>
 
 <body>
