@@ -23,7 +23,7 @@ test.describe('Navigation', () => {
       await expect(page).toHaveURL('/');
       await page.goto('/');
       await page.locator('nav a:has-text("Contact Us")').click();
-      await expect(page).toHaveURL('/contact');
+      await expect(page).toHaveURL('/contact/');
     });
 
     test('footer portfolio links work', async ({ page }) => {
@@ -31,7 +31,7 @@ test.describe('Navigation', () => {
       const footerLink = page.locator('.site-footer__nav a:has-text("Brochures")');
       await expect(footerLink).toBeVisible();
       await footerLink.click();
-      await expect(page).toHaveURL('/brochures');
+      await expect(page).toHaveURL('/brochures/');
     });
   });
 
@@ -65,7 +65,7 @@ test.describe('Navigation', () => {
       await toggle.click();
       const contact = page.locator('.mobile-nav-links a:has-text("Contact Us")');
       await contact.click();
-      await expect(page).toHaveURL('/contact');
+      await expect(page).toHaveURL('/contact/');
     });
   });
 });

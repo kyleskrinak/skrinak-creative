@@ -35,11 +35,11 @@ const currentPath = Astro.url.pathname;
 const canonicalUrl = new URL(currentPath, 'https://www.skrinakcreative.com').toString();
 
 const portfolioPages = [
-  { label: 'Brochures',              href: '/brochures' },
-  { label: 'Folders',                href: '/folders' },
-  { label: 'Logos & Identity',       href: '/logos-identity' },
-  { label: 'Newsletters & One-pagers', href: '/newsletters' },
-  { label: 'Trade Show & Display',   href: '/trade-show-display' },
+  { label: 'Brochures',              href: '/brochures/' },
+  { label: 'Folders',                href: '/folders/' },
+  { label: 'Logos & Identity',       href: '/logos-identity/' },
+  { label: 'Newsletters & One-pagers', href: '/newsletters/' },
+  { label: 'Trade Show & Display',   href: '/trade-show-display/' },
 ];
 ---
 
@@ -110,7 +110,7 @@ const portfolioPages = [
           </ul>
         </li>
 
-        <li><a href="/contact" class={`nav-contact${currentPath === '/contact' ? ' active' : ''}`}>Contact Us</a></li>
+        <li><a href="/contact/" class={`nav-contact${currentPath === '/contact' ? ' active' : ''}`}>Contact Us</a></li>
       </ul>
 
       <!-- Mobile hamburger -->
@@ -164,7 +164,7 @@ const portfolioPages = [
         </ul>
       </li>
 
-      <li><a href="/contact" class="nav-contact">Contact Us</a></li>
+      <li><a href="/contact/" class="nav-contact">Contact Us</a></li>
     </ul>
   </div>
 
