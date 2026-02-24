@@ -9,6 +9,7 @@ import logoImg from '../assets/images/logo.png';
 
 interface Props {
   title: string;
+  description?: string;
   bannerEyebrow?: string;
   bannerHeading?: string;
   isHome?: boolean;
@@ -16,6 +17,7 @@ interface Props {
 
 const {
   title,
+  description = 'Skrinak Creative, Inc. — Graphic Design. Full-service design studio specializing in corporate identity, brochures, trade show displays, and more.',
   bannerEyebrow = 'Skrinak Creative, Inc.',
   bannerHeading,
   isHome = false,
@@ -46,7 +48,7 @@ const portfolioPages = [
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Skrinak Creative, Inc. — Graphic Design. Full-service design studio specializing in corporate identity, brochures, trade show displays, and more." />
+  <meta name="description" content={description} />
   <title>{title} — Skrinak Creative, Inc.</title>
   <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/png" href="/favicon.png" />
