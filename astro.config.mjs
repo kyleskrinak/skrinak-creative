@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://skrinak-creative.pages.dev',
+  site: 'https://www.skrinakcreative.com',
   output: 'static',
   integrations: [
     sitemap(),
