@@ -160,6 +160,17 @@ main {
   position: relative;
 }
 
+/* Invisible bridge to prevent hover from breaking when moving to dropdown menu */
+.site-nav__dropdown::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 10px;
+  z-index: 99;
+}
+
 .site-nav__dropdown-toggle {
   color: var(--color-text-light);
   font-family: var(--font-body);
