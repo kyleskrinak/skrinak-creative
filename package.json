@@ -12,6 +12,8 @@
     "test:visual:mobile": "playwright test --project=mobile",
     "test:visual:baseline": "playwright test --update-snapshots",
     "test:visual:report": "playwright show-report",
+    "test:console": "playwright test tests/console-check.spec.ts",
+    "test:console:live": "TEST_URL=https://www.skrinakcreative.com playwright test tests/console-check.spec.ts",
     "test:links": "node scripts/check-links.js",
     "test": "npm run test:visual && npm run test:links"
   },
