@@ -56,6 +56,8 @@ type ImageMetadata = {
           class="gallery-main__img"
           src={img.src}
           alt={img.alt}
+          width={img.src.width}
+          height={img.src.height}
           loading={i === 0 ? 'eager' : 'lazy'}
           decoding={i === 0 ? 'auto' : 'async'}
           format="webp"
