@@ -30,6 +30,7 @@ Deploy the portfolio site to production via Cloudflare Pages.
    ```bash
    npm run build
    npm run test:visual
+   npm run test:console
    npm run lint
    ```
 
@@ -97,7 +98,13 @@ Once approved and CI passes:
    - Gallery works (click image, lightbox opens)
    - Mobile view is responsive
 
-3. **Check browser console** (DevTools → Console):
+3. **Check console automatically** (recommended):
+   ```bash
+   npm run test:console:live
+   ```
+   All 14 tests should pass (7 pages × 2 viewports).
+
+4. **Manual console check** (DevTools → Console):
    - No errors
    - No 404s
    - No warnings

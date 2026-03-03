@@ -23,9 +23,16 @@ npm run test:visual:mobile       # Mobile only (390px — below 800px breakpoint
 - Catch broken image paths
 - Can be run manually or as part of CI
 
-### Browser Console Testing
-- **Catch runtime errors**: missing resources, syntax errors, 404s
-- Run when testing in browser DevTools
+### Console Error & Warning Testing
+- **Automated testing**: Catch runtime errors, CSP violations, missing resources
+- **Multi-page**: Tests all 7 pages across desktop & mobile viewports
+- **Catches**: JavaScript errors, warnings, security policy violations
+
+Run against live site to catch deployment issues:
+```bash
+npm run test:console:live    # Test live site (www.skrinakcreative.com)
+npm run test:console         # Test local dev (localhost:4321)
+```
 
 ## Running Tests
 
@@ -39,6 +46,9 @@ npm run test:visual:baseline
 
 # View last test report
 npm run test:visual:report
+
+# Check for console errors/warnings
+npm run test:console
 ```
 
 ### Live (Squarespace) Site
@@ -189,10 +199,12 @@ When deploying, manually test:
    - [ ] Images scale appropriately
    - [ ] Navigation accessible
 
-6. **Console**:
-   - [ ] No errors
-   - [ ] No 404s
-   - [ ] No warnings
+6. **Console** (automated):
+   - [ ] Run `npm run test:console:live` — all 14 tests pass
+   - [ ] Or manually (DevTools → Console):
+     - [ ] No errors
+     - [ ] No 404s
+     - [ ] No CSP violations
 
 ---
 
