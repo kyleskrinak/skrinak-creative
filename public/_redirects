@@ -1,0 +1,4 @@
+# Redirect non-www to www (https enforced by Cloudflare)
+https://skrinakcreative.com/* https://www.skrinakcreative.com/:splat 301
+http://skrinakcreative.com/* https://www.skrinakcreative.com/:splat 301
+http://www.skrinakcreative.com/* https://www.skrinakcreative.com/:splat 301
