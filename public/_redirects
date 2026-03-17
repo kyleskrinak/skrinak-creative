@@ -2,3 +2,13 @@
 https://skrinakcreative.com/* https://www.skrinakcreative.com/:splat 301
 http://skrinakcreative.com/* https://www.skrinakcreative.com/:splat 301
 http://www.skrinakcreative.com/* https://www.skrinakcreative.com/:splat 301
+
+# Enforce trailing slashes (canonical form chosen in commit a9926c3)
+# Prevents Google duplicate content: /brochures vs /brochures/
+/brochures /brochures/ 301
+/folders /folders/ 301
+/logos-identity /logos-identity/ 301
+/newsletters /newsletters/ 301
+/contact /contact/ 301
+/trade-show-display /trade-show-display/ 301
+/home /home/ 301
