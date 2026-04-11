@@ -35,9 +35,10 @@ test.describe('Console Errors & Warnings', () => {
         // Only capture errors and warnings
         if (msgType === 'error' || msgType === 'warning') {
           const text = msg.text();
-          // Ignore WebGL GPU driver messages — these are browser-level
-          // performance notes from Leaflet's map canvas, not app warnings.
-          if (text.includes('GL Driver Message')) return;
+          // Ignore browser-level WebGL GPU driver messages from Leaflet's
+          // map canvas. Matched by the browser's own [.WebGL-0x...] prefix
+          // to avoid suppressing any app-generated messages that mention GL.
+          if (/\[\.WebGL-.*?\].*GL Driver Message/i.test(text)) return;
           consoleMessages.push({ type: msgType, text });
         }
       });
