@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
-    "astro": "^5.17.3",
+    "astro": "^6.1.5",
     "glightbox": "^3.3.0",
     "leaflet": "^1.9.4"
   },

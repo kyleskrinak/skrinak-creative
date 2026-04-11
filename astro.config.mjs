@@ -13,17 +13,4 @@ export default defineConfig({
       entrypoint: 'astro/assets/services/sharp',
     },
   },
-  // Vite optimization for better performance
-  vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          // Split vendor code for better caching
-          manualChunks: {
-            'vendor-glightbox': ['glightbox'],
-          },
-        },
-      },
-    },
-  },
 });
