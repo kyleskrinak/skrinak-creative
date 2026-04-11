@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    target-branch: "main"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      # Astro core and official integrations
+      astro-ecosystem:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Testing infrastructure
+      testing:
+        patterns:
+          - "@playwright/test"
+          - "playwright"
+        update-types:
+          - "minor"
+          - "patch"
+      # UI libraries
+      ui-libraries:
+        patterns:
+          - "glightbox"
+          - "leaflet"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+      - "automated"
