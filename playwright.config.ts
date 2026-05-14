@@ -4,6 +4,10 @@ export default defineConfig({
   testDir: './tests',
   timeout: 30_000,
   retries: 0,
+  // CI gets the HTML report (uploaded as an artifact on failure by the
+  // weekly-maintenance workflow); `open: never` keeps it from blocking
+  // the runner. Local runs keep the lightweight `list` reporter.
+  reporter: process.env.CI ? [['html', { open: 'never' }], ['list']] : 'list',
   use: {
     baseURL: process.env.TEST_URL || 'http://localhost:4322',
   },
