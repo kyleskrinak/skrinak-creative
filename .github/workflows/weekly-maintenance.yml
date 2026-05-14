@@ -1,0 +1,80 @@
+name: Weekly Maintenance
+
+# Weekly CI health checks beyond Dependabot's dependency alerts.
+# Each check runs as an independent job so failures are isolated and
+# clearly attributable. Runs Mondays 09:00 UTC; can also be triggered
+# manually from the Actions tab.
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Confirms the site still builds against the current lockfile even
+  # when no code changed (catches dependency/toolchain drift).
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build
+
+  # Surfaces transitive/lower-severity advisories Dependabot may batch
+  # or skip. Fails only on high/critical — adjust --audit-level if noisy.
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npm audit --audit-level=high
+
+  # Visual regression suite against the pixel-faithful SPEC.md baseline.
+  # The Playwright webServer builds + previews the site itself.
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:visual
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # Two-tier link check (htmltest + Playwright browser verification).
+  # check-links.js requires dist/ to already exist, so build first.
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Install htmltest
+        run: |
+          curl -sL https://github.com/wjdp/htmltest/releases/download/v0.17.0/htmltest_0.17.0_linux_amd64.tar.gz | tar xz htmltest
+          sudo mv htmltest /usr/local/bin/
+      - run: npm run test:links
