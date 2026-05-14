@@ -4,6 +4,10 @@ name: Weekly Maintenance
 # Each check runs as an independent job so failures are isolated and
 # clearly attributable. Runs Mondays 09:00 UTC; can also be triggered
 # manually from the Actions tab.
+#
+# Runners are pinned to ubuntu-24.04 (not ubuntu-latest) so the OS,
+# fonts, and toolchain stay stable week to week — important for the
+# visual job, which compares pixel-faithful snapshots.
 
 on:
   schedule:
@@ -17,7 +21,7 @@ jobs:
   # Confirms the site still builds against the current lockfile even
   # when no code changed (catches dependency/toolchain drift).
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,7 +34,7 @@ jobs:
   # Surfaces transitive/lower-severity advisories Dependabot may batch
   # or skip. Fails only on high/critical — adjust --audit-level if noisy.
   audit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,17 +45,17 @@ jobs:
       - run: npm audit --audit-level=high
 
   # Visual regression suite against the pixel-faithful SPEC.md baseline.
-  # The Playwright webServer builds + previews the site itself.
+  # Runs inside the same Playwright image the *-linux.png baselines were
+  # generated in, so font/browser rendering is bit-for-bit consistent.
+  # The image ships Node 24 and the matching browsers pre-installed, so
+  # no setup-node / playwright install steps are needed.
   visual:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.60.0-noble
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
       - run: npm run test:visual
       - uses: actions/upload-artifact@v4
         if: failure()
@@ -63,7 +67,7 @@ jobs:
   # Two-tier link check (htmltest + Playwright browser verification).
   # check-links.js requires dist/ to already exist, so build first.
   links:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -74,7 +78,15 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - name: Install htmltest
+        env:
+          HTMLTEST_VERSION: "0.17.0"
+          HTMLTEST_SHA256: "775c597ee74899d6002cd2d93076f897f4ba68686bceabe2e5d72e84c57bc0fb"
         run: |
-          curl -sL https://github.com/wjdp/htmltest/releases/download/v0.17.0/htmltest_0.17.0_linux_amd64.tar.gz | tar xz htmltest
+          set -euo pipefail
+          archive="htmltest_${HTMLTEST_VERSION}_linux_amd64.tar.gz"
+          curl -fSL --retry 3 --retry-delay 2 -o "$archive" \
+            "https://github.com/wjdp/htmltest/releases/download/v${HTMLTEST_VERSION}/${archive}"
+          echo "${HTMLTEST_SHA256}  ${archive}" | sha256sum --check --strict
+          tar xzf "$archive" htmltest
           sudo mv htmltest /usr/local/bin/
       - run: npm run test:links
