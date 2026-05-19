@@ -30,6 +30,6 @@
     "@playwright/test": "^1.60.0"
   },
   "overrides": {
-    "devalue": ">=5.8.1"
+    "devalue": "^5.8.1"
   }
 }
