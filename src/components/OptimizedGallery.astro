@@ -43,7 +43,7 @@ type ImageMetadata = {
   <div class="gallery-main" id={`gallery-main-${category}`}>
 
     {images.map((img, i) => (
-      <!-- Each image is wrapped in a GLightbox anchor -->
+      /* Each image is wrapped in a GLightbox anchor */
       <a
         href={img.src.src}
         class={`glightbox gallery-lightbox-link${i === 0 ? ' gallery-slide--active' : ' gallery-slide--hidden'}`}
