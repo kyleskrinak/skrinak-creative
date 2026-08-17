@@ -27,7 +27,7 @@
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.0"
+    "@playwright/test": "^1.62.1"
   },
   "overrides": {
     "devalue": "^5.8.1"
