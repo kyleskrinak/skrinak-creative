@@ -29,5 +29,11 @@ export default defineConfig({
     url: 'http://localhost:4322',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    // Astro 7.2+ auto-daemonizes `preview` when it detects an AI coding
+    // agent (e.g. Claude Code) via env vars, which makes the launcher
+    // process exit immediately and breaks Playwright's webServer wait.
+    // ASTRO_PREVIEW_BACKGROUND short-circuits that detection so preview
+    // stays in the foreground Playwright expects.
+    env: { ASTRO_PREVIEW_BACKGROUND: '1' },
   },
 });
