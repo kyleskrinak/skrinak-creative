@@ -10,7 +10,7 @@ Welcome! This documentation covers setup, development, deployment, and testing f
 
 ### Development
 - **[Code Change Process](./operations/code-change-process.md)** — Systematic approach: explore → plan → implement → verify
-- **[GitFlow Workflow](./operations/gitflow.md)** — Branching strategy and release process
+- **[Branching Workflow](./operations/gitflow.md)** — GitHub Flow: short-lived branches and PRs into `main`
 - **[Building & Configuration](./operations/build-configuration.md)** — Build scripts and debugging
 
 ### Testing & Quality
@@ -32,8 +32,8 @@ Welcome! This documentation covers setup, development, deployment, and testing f
 - Triggers on: Push to `main` branch
 
 **Development**:
-- Work on: `develop` branch
-- Release to: `main` via PR
+- Work on: a short-lived branch off `main` (e.g. `feat/...`, `fix/...`)
+- Release to: `main` via PR. Each PR gets a Cloudflare Pages preview URL.
 
 ---
 
@@ -78,9 +78,10 @@ make test
 
 ### Deploy to Production
 ```bash
-git push origin develop  # Work on develop
-# When ready, create PR: develop → main
-gh pr create --base main --head develop --title "Release: ..."
+git checkout main && git pull origin main
+git checkout -b feat/your-change      # work on a short-lived branch
+git push -u origin feat/your-change
+gh pr create --base main --fill       # merge after checks + preview look good
 ```
 
 ### Check Code Style

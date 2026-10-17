@@ -10,9 +10,13 @@ Deploy the portfolio site to production via Cloudflare Pages.
 - **Deployment**: Auto-triggered when code is pushed to `main`
 - **Status**: Live, user-facing
 
-### Development (`develop` branch)
-- **Platform**: Local or staging preview (depends on GitHub Actions setup)
-- **Deployment**: Manual (push to develop, no auto-deploy)
+### Preview (every pull request)
+- **Platform**: Cloudflare Pages preview deployment
+- **Deployment**: Auto-triggered on each push to a PR branch
+- **URL**: Posted as a PR comment. The stable Branch Preview URL is `https://<branch-name>.skrinak-creative.pages.dev`
+- **Purpose**: Staging. Review changes here before merging to `main`.
+
+There is no `develop` or `staging` branch. See [Branching Workflow](./gitflow.md).
 
 ---
 
@@ -20,10 +24,10 @@ Deploy the portfolio site to production via Cloudflare Pages.
 
 ### Prerequisites
 
-1. **Production branch is clean**:
+1. **Work is on a branch off an up-to-date `main`**:
    ```bash
-   git checkout main
-   git pull origin main
+   git checkout main && git pull origin main
+   git checkout -b feat/your-change
    ```
 
 2. **All tests pass locally**:
@@ -40,41 +44,29 @@ Deploy the portfolio site to production via Cloudflare Pages.
    - Images optimized
    - No console errors
 
-### Step 1: Create Release PR
-
-From `develop` to `main`:
+### Step 1: Open a PR into `main`
 
 ```bash
-gh pr create --base main --head develop \
-  --title "Release: Portfolio site migration from Squarespace" \
-  --body "## Changes
-- Migrate from Squarespace to Astro static site
-- Implement all 5 portfolio pages (brochures, folders, logos, newsletters, trade show)
-- Add contact page with embedded Google Maps
-- Set up gallery component with GLightbox lightbox
-- Configure Jost typography (Google Fonts)
-- Pixel-faithful reproduction of original design
+git push -u origin feat/your-change
+gh pr create --base main --title "feat(gallery): ..." --body "## Changes
+- ...
 
 ## Testing
 - [x] Local build passes
 - [x] Visual regression tests pass
-- [x] All pages tested in browser
-- [x] All images load correctly
-- [x] Gallery functionality works
-- [x] Mobile responsive design verified
-- [x] No console errors
 "
 ```
 
-### Step 2: Review & Approval
+### Step 2: Review the PR and its preview
 
-- Review the PR description for accuracy
+- Wait for **PR Checks** (`build`, `audit`, `visual`) to pass
+- Open the **Branch Preview URL** from the Cloudflare Pages comment and click through the changed pages
+- Read the Copilot review, if any
 - Verify all changes are intentional
-- Approve when satisfied
 
 ### Step 3: Merge to Main
 
-Once approved and CI passes:
+Once checks pass and the preview looks right:
 
 1. **Merge via GitHub UI**: Click "Merge pull request"
 2. **Cloudflare Pages auto-deploys**:
@@ -117,11 +109,10 @@ If production has critical issues:
 
 ### Option 1: Quick Fix (Recommended)
 
-1. Create hotfix branch off `main`:
+1. Create a fix branch off `main`:
    ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b hotfix/production-issue
+   git checkout main && git pull origin main
+   git checkout -b fix/production-issue
    ```
 
 2. Fix the issue:
@@ -133,23 +124,15 @@ If production has critical issues:
 
 3. Create PR to `main`:
    ```bash
-   gh pr create --base main --head hotfix/production-issue \
-     --title "Hotfix: fix production issue"
+   git push -u origin fix/production-issue
+   gh pr create --base main --fill
    ```
 
-4. Merge and deploy. Cloudflare Pages auto-deploys.
+4. Merge once checks pass. Cloudflare Pages auto-deploys.
 
-### Option 2: Revert Previous Commit
+### Option 2: Revert the Merged PR
 
-If the issue is in the last commit:
-
-```bash
-git checkout main
-git revert HEAD
-git push origin main
-```
-
-Cloudflare Pages auto-deploys the reverted code.
+On GitHub, open the PR that caused the problem and click **Revert**. GitHub opens a revert PR. Merge it, and Cloudflare Pages redeploys the previous state.
 
 ---
 
@@ -210,22 +193,27 @@ For basic performance monitoring:
 
 If you need to revert to the previous version:
 
+Revert the release's merge commit on a branch and merge it through a PR:
+
 ```bash
-# Find the previous commit hash
-git log main --oneline | head -5
+git checkout main && git pull origin main
+git log main --oneline --merges | head -5   # find the merge commit to undo
 
-# Revert to previous commit
-git revert <previous-commit-hash>
-git push origin main
+git checkout -b fix/revert-release
+git revert -m 1 <merge-commit-hash>
+git push -u origin fix/revert-release
+gh pr create --base main --fill
 
-# Cloudflare Pages auto-deploys the revert
+# Merge the PR; Cloudflare Pages auto-deploys the revert
 ```
+
+The **Revert** button on the merged PR in GitHub does the same thing.
 
 ---
 
 ## Troubleshooting
 
-### Site not updating after push to main
+### Site not updating after merge to main
 
 1. **Check GitHub Actions**: Go to repo → Actions, verify build passed
 2. **Check Cloudflare Pages**: Dashboard → Deployments, verify latest deploy succeeded

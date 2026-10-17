@@ -85,7 +85,7 @@ Makefile                         # Quick commands
 - **[SPEC.md](../../SPEC.md)** — Design specifications, color palette, typography, asset inventory
 - **[CLAUDE.md](../../CLAUDE.md)** — Project context, development philosophy, verification protocols
 - **[Code Change Process](../operations/code-change-process.md)** — How to implement changes
-- **[GitFlow Workflow](../operations/gitflow.md)** — Branching strategy
+- **[Branching Workflow](../operations/gitflow.md)** — GitHub Flow: short-lived branches and PRs into `main`
 
 ## Editing Content
 
@@ -126,19 +126,23 @@ All should pass with no errors.
 
 When ready to go live:
 
-1. Commit your changes to `develop`:
+1. Commit your changes on a branch off `main`:
    ```bash
+   git checkout main && git pull origin main
+   git checkout -b feat/portfolio-pages
    git add -A
    git commit -m "feat(pages): add portfolio pages"
-   git push origin develop
+   git push -u origin feat/portfolio-pages
    ```
 
-2. Create a PR from `develop` to `main`:
+2. Create a PR into `main`:
    ```bash
-   gh pr create --base main --head develop --title "Release: v1.0.0"
+   gh pr create --base main --fill
    ```
 
-3. Merge the PR. Cloudflare Pages auto-deploys to https://skrinakcreative.com
+3. Check the Cloudflare Pages preview URL posted on the PR.
+
+4. Merge the PR once checks pass. Cloudflare Pages auto-deploys to https://skrinakcreative.com
 
 See [Deployment Guide](../operations/deployment.md) for details.
 

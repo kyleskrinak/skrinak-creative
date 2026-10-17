@@ -1,192 +1,105 @@
-# GitFlow Workflow
+# Branching Workflow
 
-Lightweight gitflow for solo development on a static portfolio site.
+GitHub Flow: short-lived branches off `main`, merged back to `main` through a pull request. There is no `develop` or `staging` branch. Cloudflare Pages builds a preview of every PR, and that preview takes the place of a staging environment.
 
-## Branch Structure
+## Branches
 
-- **`develop`**: Main integration branch. Active development, direct commits allowed. Staging/preview environment.
-- **`main`**: Production-ready code. Auto-deploys to skrinakcreative.com via Cloudflare Pages. Requires PR.
+- **`main`**: Production. Every merge auto-deploys to skrinakcreative.com via Cloudflare Pages.
+- **Short-lived work branches**: One per change, branched off `main`, deleted after merge.
 
-**No feature branches** (unless you need work isolation — see below).
+**Naming**: Prefix with the Conventional Commit type, e.g. `feat/`, `fix/`, `chore/`, `docs/`, `ci/`.
 
 ## Key Rules
 
-1. **Work directly on `develop`**: For solo development, commit and push directly to `develop` for fast iteration.
-2. **`main` is production**: Requires PR from `develop`. All production changes flow through PRs for audit.
-3. **Flow is linear**: `develop` (work) → PR → `main` (production)
-4. **Never commit directly to `main`**: Always use PRs.
+1. **Branch off an up-to-date `main`** for every change.
+2. **Every change reaches `main` through a PR**, so CI, the Cloudflare preview, and Copilot review all run before production.
+3. **Keep branches short-lived**: merge or close within days, then delete.
 
 ---
 
-## Standard Workflow (Direct to Develop)
-
-**Default workflow for solo development**:
+## Standard Workflow
 
 ```bash
-# 1. Make sure you're on develop and up to date
-git checkout develop && git pull origin develop
+# 1. Start from an up-to-date main
+git checkout main && git pull origin main
+git checkout -b feat/gallery-captions
 
 # 2. Make changes and commit
 # ... edit files ...
 git add -A
-git commit -m "feat(gallery): implement GLightbox lightbox for portfolio images"
+git commit -m "feat(gallery): add captions to lightbox images"
 
-# 3. Push directly to develop
-git push origin develop
-
-# 4. When ready to release, create PR: develop → main
-gh pr create --base main --head develop --title "Release: add gallery and contact pages"
-```
-
-**When to use feature branches instead**:
-- Long-running work (days/weeks)
-- Experimental features you might abandon
-- When pausing work and switching context
-
----
-
-## Creating a Feature Branch (Optional)
-
-Use only when you need work isolation:
-
-```bash
-git checkout develop
-git pull origin develop
-git checkout -b feature/gallery-component
-
-# ... make changes ...
-git add -A
-git commit -m "feat(gallery): build GLightbox component"
-git push -u origin feature/gallery-component
-
-# Merge back to develop when ready
-git checkout develop
-git pull origin develop
-git merge --no-ff feature/gallery-component
-git push origin develop
-git branch -d feature/gallery-component
-git push origin --delete feature/gallery-component
-```
-
-**Naming convention**: Use `feature/`, `fix/`, `chore/`, or `docs/` prefixes.
-
----
-
-## Releasing to Production
-
-### Prerequisites
-
-Before opening a release PR, verify:
-
-```bash
-# Make sure develop is up to date
-git checkout develop && git pull origin develop
-
-# Verify tests pass locally
+# 3. Verify locally
 npm run build
 npm run test:visual
+
+# 4. Push and open a PR into main
+git push -u origin feat/gallery-captions
+gh pr create --base main --fill
 ```
 
-### Create Release PR
+### What runs on the PR
+
+| Check | What it does |
+| --- | --- |
+| **PR Checks** (GitHub Actions) | `build`, `audit` (`npm audit --audit-level=high`), `visual` (Playwright) |
+| **Cloudflare Pages** | Builds a preview and comments with a per-commit **Preview URL** and a stable **Branch Preview URL** (`https://<branch-name>.skrinak-creative.pages.dev`) |
+| **Copilot code review** | Requested automatically on PRs you open. It skips lockfiles, and it doesn't review Dependabot PRs. |
+
+Use the Branch Preview URL as the staging check: click through the changed pages before merging.
+
+### Merge and clean up
+
+Merge via the GitHub UI once the checks pass and the preview looks right. Cloudflare Pages deploys `main` to production in about 1–2 minutes.
 
 ```bash
-# Create PR from develop to main
-gh pr create --base main --head develop \
-  --title "Release: v1.0.0 — Portfolio pages and gallery" \
-  --body "## Changes
-- Implement gallery component with GLightbox
-- Create all 5 portfolio pages (brochures, folders, logos, newsletters, trade show)
-- Add contact page with map
-- Set up Jost typography
-
-## Testing
-- [x] Local build passes
-- [x] Visual regression tests pass
-- [x] Link checking passes
-"
+git checkout main && git pull origin main
+git branch -d feat/gallery-captions
+git push origin --delete feat/gallery-captions
 ```
 
-### Release Checklist
+---
 
-Before merging `develop` → `main`:
+## Dependabot PRs
 
-- [ ] All pages implemented and tested
-- [ ] Visual regression tests pass
-- [ ] Build passes without errors
-- [ ] Images are optimized
-- [ ] SPEC.md matches implementation (colors, typography, spacing)
-- [ ] No console errors
-- [ ] Links work (internal + image galleries)
-- [ ] Mobile responsive
+Dependabot opens grouped dependency PRs against `main` every Monday at 09:00 America/New_York (see `.github/dependabot.yml`). They get the same checks as any other PR, except Copilot review.
 
-### Merge & Deploy
-
-Once approved and CI passes, merge via GitHub UI. Cloudflare Pages automatically deploys.
+- When `@playwright/test` gets a minor bump, update the `mcr.microsoft.com/playwright:vX.Y.Z-noble` container image to match in **both** `.github/workflows/pr-checks.yml` and `.github/workflows/weekly-maintenance.yml`. Otherwise the `visual` job fails at browser launch.
+- Dependabot stops rebasing a PR once anyone else pushes to its branch. Bring such a PR up to date by merging `main` into it rather than force-pushing.
 
 ---
 
-## Branch Protection Rules
+## Branch Protection
 
-Configure via GitHub: Repository → Settings → Branches → Add Rule
+`main` is covered by the **Main Copilot** repository ruleset (Settings → Rules → Rulesets):
 
-### `develop`
-- Optional: Require CI to pass (GitHub Actions)
-- Optional: Require PR review (catch issues early)
+- Blocks branch deletion
+- Blocks force pushes
+- Automatically requests Copilot code review on new PRs, new pushes, and draft PRs
 
-### `main`
-- **Require pull request review** (≥ 1 approval)
-- **Require CI to pass** (GitHub Actions)
-- **Require branches to be up to date** before merge
-- **Dismiss stale reviews** on new commits
+The ruleset does **not** require a PR or passing checks. Merging through a PR is a convention. To enforce it, add the "Require a pull request before merging" and "Require status checks to pass" rules to the ruleset.
 
 ---
 
-## Rollback Strategy
+## Rollback
 
-### If Development is Broken
+### Revert a bad merge
 
-1. Identify the problematic commit:
-   ```bash
-   git log --oneline develop | head
-   ```
+On GitHub, open the merged PR and click **Revert**. GitHub creates a revert branch and PR. Merge it, and Cloudflare Pages redeploys the previous state.
 
-2. Revert the commit:
-   ```bash
-   git checkout develop
-   git revert <commit-hash>
-   git push origin develop
-   ```
+From the command line, the equivalent is:
 
-3. Fix the issue in a new commit.
+```bash
+git checkout main && git pull origin main
+git checkout -b fix/revert-gallery-captions
+git revert -m 1 <merge-commit-hash>
+git push -u origin fix/revert-gallery-captions
+gh pr create --base main --fill
+```
 
-### If Production is Broken
+### Fix forward
 
-1. Create a hotfix branch off `main`:
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b hotfix/production-bug
-
-   # Fix the issue
-   git add -A
-   git commit -m "fix(gallery): correct image path in lightbox"
-   ```
-
-2. Create PR to `main`:
-   ```bash
-   gh pr create --base main --head hotfix/production-bug \
-     --title "Hotfix: fix image paths in gallery"
-   ```
-
-3. Merge and deploy.
-
-4. Sync `develop` with the fix:
-   ```bash
-   git checkout develop
-   git pull origin develop
-   git merge main
-   git push origin develop
-   ```
+For a small production bug, a normal `fix/` branch and PR is usually faster than a revert.
 
 ---
 
@@ -209,30 +122,6 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) for clear histo
 - `fix(styles): correct Jost font weight in headings`
 - `docs(spec): update asset inventory`
 - `chore(build): configure image optimization`
-
----
-
-## Questions
-
-**Q: Can I commit directly to `develop`?**
-
-A: Yes. Direct commits to `develop` are allowed for fast iteration.
-
-**Q: Can I commit directly to `main`?**
-
-A: No. All changes to production require PRs for audit and validation.
-
-**Q: What if I need an urgent production fix?**
-
-A: Create a `hotfix/` branch off `main`, fix, test, PR to `main`, merge, then sync `develop`.
-
-**Q: How do I clean up old feature branches?**
-
-A: After merging to `develop`:
-```bash
-git branch -d feature/your-feature
-git push origin --delete feature/your-feature
-```
 
 ---
 

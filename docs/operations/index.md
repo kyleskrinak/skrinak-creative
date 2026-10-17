@@ -5,7 +5,7 @@ This section covers developing, maintaining, and deploying the Astro portfolio s
 ## Development & Process
 
 - **[Code Change Process](./code-change-process.md)** — Systematic approach: explore → plan → implement → verify
-- **[GitFlow Workflow](./gitflow.md)** — Branching strategy for development and releases
+- **[Branching Workflow](./gitflow.md)** — GitHub Flow: short-lived branches, PRs into `main`, Cloudflare previews
 
 ## Build & Configuration
 
@@ -22,19 +22,19 @@ This section covers developing, maintaining, and deploying the Astro portfolio s
 ### Development Workflow
 
 ```bash
-# 1. Work on develop branch
-git checkout develop && git pull origin develop
+# 1. Branch off an up-to-date main
+git checkout main && git pull origin main
+git checkout -b feat/brochures-page
 
 # 2. Make changes and commit
 git add -A
 git commit -m "feat(pages): add brochures page"
 
-# 3. Push to develop
-git push origin develop
+# 3. Push and open a PR into main
+git push -u origin feat/brochures-page
+gh pr create --base main --fill
 
-# 4. When ready to release, create PR: develop → main
-gh pr create --base main --head develop --title "Release: portfolio pages"
-
+# 4. Check the Cloudflare preview URL posted on the PR
 # 5. After PR merge, Cloudflare Pages auto-deploys to production
 ```
 
@@ -52,11 +52,11 @@ npm run lint
 ### Deploy to Production
 
 ```bash
-# Create PR from develop to main
-gh pr create --base main --head develop --title "Release: ..."
+# Open a PR from your branch into main
+gh pr create --base main --fill
 
-# GitHub CI runs tests
-# Once approved and CI passes, merge via GitHub UI
+# PR Checks (build, audit, visual) and a Cloudflare preview deploy run on the PR
+# Once checks pass and the preview looks right, merge via GitHub UI
 # Cloudflare Pages auto-deploys to https://skrinakcreative.com
 ```
 
@@ -64,9 +64,10 @@ gh pr create --base main --head develop --title "Release: ..."
 
 ## Key Information
 
-**Staging Environment**:
-- Branch: `develop`
-- Deployment: Manual (or local preview)
+**Preview (staging) Environment**:
+- Source: every pull request
+- URL: `https://<branch-name>.skrinak-creative.pages.dev` (posted as a PR comment)
+- Deployment: Auto-triggered by Cloudflare Pages on each push to a PR branch
 
 **Production Environment**:
 - URL: https://skrinakcreative.com
@@ -75,8 +76,9 @@ gh pr create --base main --head develop --title "Release: ..."
 - Deployment: Auto-triggered on push to `main`
 
 **Branches**:
-- `develop` — Active development
-- `main` — Production (requires PR)
+- `main`: Production. Changes arrive by PR.
+- Short-lived `feat/`, `fix/`, `chore/`, `docs/`, `ci/` branches: one per change, deleted after merge
+- No `develop` or `staging` branch
 
 ---
 
