@@ -80,6 +80,9 @@ make test
 ```bash
 git checkout main && git pull origin main
 git checkout -b feat/your-change      # work on a short-lived branch
+# ... edit files ...
+git add -A
+git commit -m "feat(scope): describe the change"
 git push -u origin feat/your-change
 gh pr create --base main --fill       # merge after checks + preview look good
 ```

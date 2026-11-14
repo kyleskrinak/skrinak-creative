@@ -43,10 +43,10 @@ gh pr create --base main --fill
 | Check | What it does |
 | --- | --- |
 | **PR Checks** (GitHub Actions) | `build`, `audit` (`npm audit --audit-level=high`), `visual` (Playwright) |
-| **Cloudflare Pages** | Builds a preview and comments with a per-commit **Preview URL** and a stable **Branch Preview URL** (`https://<branch-name>.skrinak-creative.pages.dev`) |
+| **Cloudflare Pages** | Builds a preview and comments with a per-commit **Preview URL** and a stable **Branch Preview URL** |
 | **Copilot code review** | Requested automatically on PRs you open. It skips lockfiles, and it doesn't review Dependabot PRs. |
 
-Use the Branch Preview URL as the staging check: click through the changed pages before merging.
+Use the Branch Preview URL as the staging check: click through the changed pages before merging. Copy it from the Cloudflare Pages comment rather than building it from the branch name. Cloudflare replaces `/` and `_` with `-` (`feat/gallery-captions` becomes `https://feat-gallery-captions.skrinak-creative.pages.dev`), and it shortens long branch names and adds a suffix.
 
 ### Merge and clean up
 

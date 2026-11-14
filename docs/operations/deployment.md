@@ -13,7 +13,7 @@ Deploy the portfolio site to production via Cloudflare Pages.
 ### Preview (every pull request)
 - **Platform**: Cloudflare Pages preview deployment
 - **Deployment**: Auto-triggered on each push to a PR branch
-- **URL**: Posted as a PR comment. The stable Branch Preview URL is `https://<branch-name>.skrinak-creative.pages.dev`
+- **URL**: Copy the Branch Preview URL from the Cloudflare Pages comment on the PR. Cloudflare derives it from the branch name with `/` replaced by `-` (`feat/gallery-captions` → `https://feat-gallery-captions.skrinak-creative.pages.dev`), and it shortens long names.
 - **Purpose**: Staging. Review changes here before merging to `main`.
 
 There is no `develop` or `staging` branch. See [Branching Workflow](./gitflow.md).
@@ -47,6 +47,8 @@ There is no `develop` or `staging` branch. See [Branching Workflow](./gitflow.md
 ### Step 1: Open a PR into `main`
 
 ```bash
+git add -A
+git commit -m "feat(gallery): describe the change"
 git push -u origin feat/your-change
 gh pr create --base main --title "feat(gallery): ..." --body "## Changes
 - ...

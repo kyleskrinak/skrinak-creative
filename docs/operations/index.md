@@ -66,7 +66,7 @@ gh pr create --base main --fill
 
 **Preview (staging) Environment**:
 - Source: every pull request
-- URL: `https://<branch-name>.skrinak-creative.pages.dev` (posted as a PR comment)
+- URL: the Branch Preview URL in the Cloudflare Pages comment on the PR (e.g. `feat/gallery-captions` → `https://feat-gallery-captions.skrinak-creative.pages.dev`)
 - Deployment: Auto-triggered by Cloudflare Pages on each push to a PR branch
 
 **Production Environment**:
