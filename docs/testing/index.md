@@ -112,10 +112,10 @@ See [Test Findings](./findings.md) for latest test run results and known issues.
 ## Automated Testing in CI
 
 **GitHub Actions** runs tests on:
-- Every push to `develop`
-- Every PR to `main`
+- Every PR to `main`: **PR Checks** (`build`, `audit`, `visual`)
+- Every Monday at 09:00 UTC, or on manual dispatch: **Weekly Maintenance** (`build`, `audit`, `visual`, `links`)
 
-Tests must pass before merging to `main`.
+Merge to `main` only after PR Checks pass. GitHub doesn't enforce this (see [Branching Workflow](../operations/gitflow.md#branch-protection)).
 
 ---
 
