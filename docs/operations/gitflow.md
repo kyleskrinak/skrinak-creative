@@ -138,7 +138,6 @@ PUBLIC_SITE_URL=http://localhost:3000
 
 ### Production CI (Cloudflare Pages)
 
-Set in Cloudflare Pages project settings → Environment variables:
-- `NODE_VERSION=20` (or current LTS)
+The build needs Node.js 22.23.4 or newer, astro's minimum (`engines` in `package.json`). To change the version, set `NODE_VERSION` in Cloudflare Pages project settings → Environment variables.
 
 No secrets needed for this static site.

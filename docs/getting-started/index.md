@@ -46,8 +46,6 @@ The dev server watches your files and automatically reloads the browser when you
 | `npm run dev` | Start development server (http://localhost:4321) |
 | `npm run build` | Build for production (creates `dist/` folder) |
 | `npm run preview` | Preview production build locally |
-| `npm run lint` | Check code for style issues |
-| `npm run format` | Auto-format code with Prettier |
 | `npm run test:visual` | Run visual regression tests |
 | `make test` | Run all tests (shortcut) |
 
@@ -115,9 +113,6 @@ npm run build
 
 # Run visual regression tests
 npm run test:visual
-
-# Check code style
-npm run lint
 ```
 
 All should pass with no errors.
@@ -162,9 +157,6 @@ npm run dev
 ```bash
 # Check for errors
 npm run build
-
-# Lint for issues
-npm run lint
 ```
 
 ### Images not showing in dev

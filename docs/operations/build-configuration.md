@@ -101,11 +101,7 @@ See `.env.example` for all available variables.
 
 ### Production (Cloudflare Pages)
 
-Set in Cloudflare Pages project settings → Environment variables:
-
-```
-NODE_VERSION=20
-```
+The build needs Node.js 22.23.4 or newer, astro's minimum (`engines` in `package.json`). Astro's CLI exits on older versions, so a successful deploy confirms the build image meets it. To change the version, set `NODE_VERSION` in Cloudflare Pages project settings → Environment variables.
 
 No secrets needed for this static site.
 
@@ -179,9 +175,6 @@ Cloudflare Pages caches assets aggressively:
 ```bash
 # Verbose build output
 npm run build -- --verbose
-
-# Check for TypeScript errors
-npm run lint
 ```
 
 ### Dev Server Issues
@@ -253,13 +246,12 @@ If builds slow down, check:
    - Publishes `dist/` to production
    - Takes ~1-2 minutes
 
-### Environment Variables in CI
+### Node Version in CI
 
-Set in Cloudflare Pages → project settings → Environment variables:
+- **GitHub Actions**: `actions/setup-node` with `node-version: "22"`, or the Playwright container image for the `visual` job
+- **Cloudflare Pages**: the build image's Node.js, or `NODE_VERSION` from project settings → Environment variables
 
-```
-NODE_VERSION=20
-```
+Both must provide Node.js 22.23.4 or newer, astro's minimum (`engines` in `package.json`).
 
 ---
 
@@ -267,9 +259,9 @@ NODE_VERSION=20
 
 ### Build fails on Cloudflare Pages but works locally
 
-1. **Check Node version**:
+1. **Check Node version** (22.23.4 or newer):
    - Local: `node --version`
-   - Cloudflare: Set `NODE_VERSION` env var to match
+   - Cloudflare: if the build log shows `Node.js vX is not supported by Astro!`, set `NODE_VERSION` in project settings → Environment variables
 
 2. **Check npm version**:
    - `npm --version` should be 10+

@@ -44,7 +44,6 @@ gh pr create --base main --fill
 # Verify everything works locally
 npm run build
 npm run test:visual
-npm run lint
 
 # If all pass, you're ready to push
 ```
