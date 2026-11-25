@@ -35,7 +35,6 @@ There is no `develop` or `staging` branch. See [Branching Workflow](./gitflow.md
    npm run build
    npm run test:visual
    npm run test:console
-   npm run lint
    ```
 
 3. **Code changes are ready for production**:
@@ -147,8 +146,9 @@ The site is configured to auto-deploy from GitHub:
 - Build command: `npm run build`
 - Build output directory: `dist`
 
-**Environment Variables** (set in Cloudflare Pages):
-- `NODE_VERSION`: `20` (or current LTS)
+**Node version**:
+- The build needs Node.js 22.23.4 or newer, astro's minimum (`engines` in `package.json`). Astro's CLI exits on older versions, so a successful deploy confirms the build image meets it.
+- To change the version, set `NODE_VERSION` in Cloudflare Pages project settings → Environment variables.
 
 **Custom Domain**:
 - Domain: `skrinakcreative.com`
@@ -227,7 +227,7 @@ The **Revert** button on the merged PR in GitHub does the same thing.
 
 1. **Check build logs**: Cloudflare Pages → Deployments → View build log
 2. **Verify locally**: `npm run build` passes?
-3. **Check Node version**: Cloudflare Pages may need `NODE_VERSION` env var set to 20
+3. **Check Node version**: if the log shows `Node.js vX is not supported by Astro!`, set `NODE_VERSION` in Cloudflare Pages project settings → Environment variables to 22.23.4 or newer
 
 ### Images not loading
 

@@ -87,12 +87,6 @@ git push -u origin feat/your-change
 gh pr create --base main --fill       # merge after checks + preview look good
 ```
 
-### Check Code Style
-```bash
-npm run lint
-npm run format
-```
-
 ---
 
 **Questions?** Check the relevant guide above, or review SPEC.md for design details.

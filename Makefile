@@ -1,13 +1,11 @@
-.PHONY: build test test:visual lint format clean help dev
+.PHONY: build test test-visual clean help dev
 
 help:
 	@echo "Available commands:"
 	@echo "  make dev             - Start development server"
 	@echo "  make build           - Build for production"
-	@echo "  make test            - Run all tests (visual + links)"
-	@echo "  make test:visual     - Run visual regression tests"
-	@echo "  make lint            - Check code style"
-	@echo "  make format          - Auto-format code"
+	@echo "  make test            - Run visual regression tests (same as test-visual)"
+	@echo "  make test-visual     - Run visual regression tests"
 	@echo "  make clean           - Clean build artifacts"
 	@echo ""
 	@echo "Quick start:"
@@ -22,21 +20,13 @@ build:
 	@echo "🏗️  Building for production..."
 	npm run build
 
-test: test:visual
+test: test-visual
 	@echo ""
 	@echo "✅ All tests passed!"
 
-test:visual:
+test-visual:
 	@echo "📸 Running visual regression tests..."
 	npm run test:visual
-
-lint:
-	@echo "🔍 Linting code..."
-	npm run lint
-
-format:
-	@echo "✨ Formatting code..."
-	npm run format
 
 clean:
 	@echo "🧹 Cleaning build artifacts..."

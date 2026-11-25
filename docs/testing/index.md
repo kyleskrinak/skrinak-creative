@@ -92,7 +92,6 @@ Before creating a release PR, verify:
 
 - [ ] Local build passes: `npm run build`
 - [ ] Visual regression tests pass: `npm run test:visual`
-- [ ] Code style passes: `npm run lint`
 - [ ] All pages load in browser
 - [ ] Gallery works (click image → lightbox opens)
 - [ ] Navigation works (all links functional)
@@ -138,7 +137,6 @@ Merge to `main` only after PR Checks pass. GitHub doesn't enforce this (see [Bra
 
 1. **Check error message**: `npm run build` shows what failed
 2. **Check Astro config**: `astro.config.ts` correct?
-3. **Check TypeScript**: `npm run lint` for type errors
 
 ---
 

@@ -142,9 +142,6 @@ npm run build
 
 npm run test:visual
 # Verify visual regression tests pass
-
-npm run lint
-# Verify code style
 ```
 
 ### Final Pre-Commit Checklist
@@ -161,7 +158,6 @@ Can you answer YES to all?
 8. ✅ Updated README.md if user-facing changes
 9. ✅ Build passes: `npm run build`
 10. ✅ Tests pass: `npm run test:visual`
-11. ✅ Code style passes: `npm run lint`
 
 **If you can't check all boxes, you're not done.**
 
